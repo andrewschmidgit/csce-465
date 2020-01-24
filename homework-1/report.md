@@ -42,4 +42,48 @@ int main(int argc, char *argv[])
 - https://www.maketecheasier.com/run-bash-commands-background-linux/
 - http://ctfweb.martincarlisle.com/problems
 
-## 
+## Websniff
+### Solution
+1. Loaded the webpage
+2. Opened Chrome Dev Tools to the `Network` tab
+3. Reloaded to monitor network traffic
+4. Looked at the main load request headers
+![](packet-sniff.png)
+
+### Help Received
+- Chrome dev tools
+
+## Websniff
+### Solution
+### Code
+### Help Received
+
+## Websniff
+### Solution
+### Code
+### Help Received
+
+## Websniff
+### Solution
+### Code
+### Help Received
+
+## Websniff
+### Solution
+### Code
+### Help Received
+
+## Websniff
+### Solution
+### Code
+### Help Received
+
+## Websniff
+### Solution
+### Code
+### Help Received
+
+## Websniff
+### Solution
+### Code
+### Help Received
