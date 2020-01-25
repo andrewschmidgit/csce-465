@@ -53,37 +53,13 @@ int main(int argc, char *argv[])
 ### Help Received
 - Chrome dev tools
 
-## Websniff
+## Brute Force Password
 ### Solution
-### Code
+run `john --wordlist=/usr/share/dict/words saltedpasswd.txt` and wait to output the password
 ### Help Received
+https://www.openwall.com/john/doc/
 
-## Websniff
-### Solution
-### Code
-### Help Received
-
-## Websniff
-### Solution
-### Code
-### Help Received
-
-## Websniff
-### Solution
-### Code
-### Help Received
-
-## Websniff
-### Solution
-### Code
-### Help Received
-
-## Websniff
-### Solution
-### Code
-### Help Received
-
-## Websniff
+## Known plaintext RSA
 ### Solution
 ### Code
 ### Help Received
