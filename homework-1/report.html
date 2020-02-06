@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Homework 1</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body class="vscode-light">
+        <h1 id="homework-1">Homework 1</h1>
+<blockquote>
+<p>User: <code>vohtarak</code></p>
+</blockquote>
+<h2 id="prng">PRNG</h2>
+<h3 id="solution">Solution</h3>
+<p>Ran <code>exploit</code> in the background and <code>vuln</code> at the same time, wrote the seeded results to <code>numbers.txt</code></p>
+<h3 id="code">Code</h3>
+<pre><code class="language-cpp"><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;limits.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;time.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> FLAGSIZE 128</span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">win</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">char</span> buf[FLAGSIZE];
+  FILE *f = fopen(<span class="hljs-string">"flag.txt"</span>,<span class="hljs-string">"r"</span>);
+  fgets(buf,FLAGSIZE,f);
+  <span class="hljs-built_in">puts</span>(buf);
+  fflush(<span class="hljs-built_in">stdout</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span>
+</span>{
+   srand(time(<span class="hljs-literal">NULL</span>));
+
+   FILE *numbers = fopen(<span class="hljs-string">"/home/vohtarak/homework-1/numbers.txt"</span>,<span class="hljs-string">"w"</span>);
+   <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++)
+      <span class="hljs-built_in">fprintf</span>(numbers, <span class="hljs-string">"%i: %li\n"</span>, i, random()%<span class="hljs-number">100</span>);
+   fclose(numbers);
+
+   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<h3 id="help-received">Help Received</h3>
+<ul>
+<li><a href="https://linux.die.net/man/3/fopen">https://linux.die.net/man/3/fopen</a></li>
+<li><a href="https://www.maketecheasier.com/run-bash-commands-background-linux/">https://www.maketecheasier.com/run-bash-commands-background-linux/</a></li>
+<li><a href="http://ctfweb.martincarlisle.com/problems">http://ctfweb.martincarlisle.com/problems</a></li>
+</ul>
+<hr>
+<h2 id="websniff">Websniff</h2>
+<h3 id="solution-1">Solution</h3>
+<ol>
+<li>Loaded the webpage</li>
+<li>Opened Chrome Dev Tools to the <code>Network</code> tab</li>
+<li>Reloaded to monitor network traffic</li>
+<li>Looked at the main load request headers
+<img src="file:////home/andrew/source/csce-465/homework-1/packet-sniff.png" alt=""></li>
+</ol>
+<h3 id="help-received-1">Help Received</h3>
+<ul>
+<li>Chrome dev tools</li>
+</ul>
+<hr>
+<h2 id="brute-force-password">Brute Force Password</h2>
+<h3 id="solution-2">Solution</h3>
+<p>run <code>john --wordlist=/usr/share/dict/words saltedpasswd.txt</code> and wait to output the password</p>
+<h3 id="help-received-2">Help Received</h3>
+<p><a href="https://www.openwall.com/john/doc/">https://www.openwall.com/john/doc/</a></p>
+<hr>
+<h2 id="known-plaintext-rsa">Known plaintext RSA</h2>
+<h3 id="solution-3">Solution</h3>
+<p>Running my python script in the directory of <code>messages.txt</code> will write the text to the file <code>hacked.txt</code></p>
+<p>For each encrypted message, I create a string, pad it with null bytes, pass it through <code>openssl rsault</code> encrypting with the respective public key, encode it in <code>base64</code>, and compare the result to the encrypted message.</p>
+<h3 id="code-1">Code</h3>
+<pre><code class="language-python"><div><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> subprocess
+<span class="hljs-keyword">from</span> subprocess <span class="hljs-keyword">import</span> PIPE
+
+<span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> islice
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getFilePath</span><span class="hljs-params">(filename)</span>:</span>
+    currentDirectory = os.path.dirname(os.path.realpath(__file__))
+    <span class="hljs-keyword">return</span> currentDirectory + <span class="hljs-string">'/'</span> + filename
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">openFile</span><span class="hljs-params">(filename, mode)</span>:</span>
+    <span class="hljs-keyword">return</span> open(getFilePath(filename), mode)
+
+PRES_KEY = getFilePath(<span class="hljs-string">'presidentpub.pem'</span>)
+TRES_KEY = getFilePath(<span class="hljs-string">'treasurypub.pem'</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getEncrypted</span><span class="hljs-params">(text, key)</span>:</span>
+    <span class="hljs-comment"># Pad with null bytes</span>
+    text = text.ljust(<span class="hljs-number">256</span>, chr(<span class="hljs-number">0</span>))
+
+    <span class="hljs-comment"># use openssl rsautl</span>
+    rsa_result = subprocess.run([<span class="hljs-string">'openssl'</span>, <span class="hljs-string">'rsautl'</span>, <span class="hljs-string">'-encrypt'</span>, <span class="hljs-string">'-raw'</span>, <span class="hljs-string">'-pubin'</span>, <span class="hljs-string">'-inkey'</span>, key], input=text.encode(<span class="hljs-string">'utf-8'</span>), stdout=PIPE).stdout
+
+    <span class="hljs-comment"># use base64 encode</span>
+    base_result = subprocess.run([<span class="hljs-string">'openssl'</span>, <span class="hljs-string">'base64'</span>, <span class="hljs-string">'-A'</span>], input=rsa_result, stdout=PIPE).stdout
+
+    <span class="hljs-keyword">return</span> base_result.decode(<span class="hljs-string">'utf-8'</span>)
+
+banks = openFile(<span class="hljs-string">"banks.txt"</span>, <span class="hljs-string">"r"</span>).readlines()
+hacked = openFile(<span class="hljs-string">'hacked.txt'</span>, <span class="hljs-string">'w'</span>)
+
+<span class="hljs-keyword">with</span> openFile(<span class="hljs-string">"messages.txt"</span>, <span class="hljs-string">"r"</span>) <span class="hljs-keyword">as</span> messagesFile:
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        message = list(islice(messagesFile, <span class="hljs-number">5</span>))
+        <span class="hljs-keyword">if</span> message <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>: 
+            exit()
+        
+        message = [m.strip() <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> message]
+        message = <span class="hljs-string">""</span>.join(message)
+
+        crackedText = <span class="hljs-literal">None</span>
+        test = openFile(<span class="hljs-string">'test.txt'</span>, <span class="hljs-string">'w'</span>)
+        <span class="hljs-keyword">for</span> bank <span class="hljs-keyword">in</span> banks:
+            bank = bank.strip()
+            encrypt = getEncrypted(<span class="hljs-string">'How much to '</span> + bank + <span class="hljs-string">'?\n'</span>, PRES_KEY)
+            test.write(encrypt)
+            <span class="hljs-keyword">if</span> message == encrypt:
+                crackedText = bank
+                <span class="hljs-keyword">break</span>
+
+        <span class="hljs-keyword">if</span> crackedText <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">999</span>):
+                encrypt = getEncrypted(<span class="hljs-string">'$'</span> + str(i) + <span class="hljs-string">'B\n'</span>, TRES_KEY)
+                <span class="hljs-keyword">if</span> message == encrypt:
+                    crackedText = str(i)
+                    <span class="hljs-keyword">break</span>
+        
+        <span class="hljs-keyword">if</span> crackedText <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            print(<span class="hljs-string">'not today son'</span>)
+        <span class="hljs-keyword">else</span>:
+            hacked.write(crackedText + <span class="hljs-string">'\n'</span>)
+
+banksFile.close()
+hacked.close()
+</div></code></pre>
+<h3 id="help-received-3">Help Received</h3>
+<ul>
+<li>Piazza posts</li>
+<li><a href="https://www.mkssoftware.com/docs/man1/openssl_rsautl.1.asp">https://www.mkssoftware.com/docs/man1/openssl_rsautl.1.asp</a></li>
+<li><a href="https://linux.die.net/man/1/base64">https://linux.die.net/man/1/base64</a></li>
+<li><a href="https://stackoverflow.com/questions/89228/calling-an-external-command-from-python/46815111#46815111">https://stackoverflow.com/questions/89228/calling-an-external-command-from-python/46815111#46815111</a></li>
+</ul>
+
+    </body>
+    </html>
