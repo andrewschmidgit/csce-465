@@ -65,6 +65,7 @@ https://www.openwall.com/john/doc/
 ---
 
 ## Known plaintext RSA
+> unfinished
 ### Solution
 Running my python script in the directory of `messages.txt` will write the text to the file `hacked.txt`
 
