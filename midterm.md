@@ -26,18 +26,19 @@
     - [Pseudonyms](#pseudonyms)
   - [Correlation and Traceback](#correlation-and-traceback)
   - [Social Engineering](#social-engineering)
-  - [Virus](#virus)
-  - [Worm](#worm)
-  - [Rootkit](#rootkit)
-  - [Trojan](#trojan)
   - [Insider Attack](#insider-attack)
   - [Backdoor](#backdoor)
   - [Easter Egg](#easter-egg)
   - [Logic Bomb](#logic-bomb)
-  - [Polymorphic Virus](#polymorphic-virus)
-  - [Metamorphic Virus](#metamorphic-virus)
   - [Zombie](#zombie)
   - [Botnet](#botnet)
+- [Malware](#malware)
+  - [Virus](#virus)
+    - [Polymorphic Virus](#polymorphic-virus)
+    - [Metamorphic Virus](#metamorphic-virus)
+  - [Worm](#worm)
+  - [Rootkit](#rootkit)
+  - [Trojan](#trojan)
 - [Security Principles](#security-principles)
   - [Economy of mechanism](#economy-of-mechanism)
   - [Fail-safe defaults](#fail-safe-defaults)
@@ -199,42 +200,48 @@
 ## Social Engineering
 > 
 
-## Virus
-> 
-
-## Worm
-> 
-
-## Rootkit
-> 
-
-## Trojan
-> 
-
 ## Insider Attack
-> 
+A security breach that is caused by someone who is a part of the organization that controls the asset that should be protected
 
 ## Backdoor
-> 
+Hidden feature or command in a program that allows a user to perform actions he would not normally be allowed to do
 
 ## Easter Egg
-> 
+Non malicious secret
 
 ## Logic Bomb
-> 
-
-## Polymorphic Virus
-> 
-
-## Metamorphic Virus
-> 
+Program that performs a malicious action as a result of a certain logic condition
 
 ## Zombie
-> 
+Machine controlled externally to perform malicious attacks
 
 ## Botnet
-> 
+Group of zombies to attack victim
 
+---
+
+# Malware
+## Virus
+Human assisted propogation
+
+### Polymorphic Virus
+Encrypted virus with random variations of the decryption engine
+
+### Metamorphic Virus
+- Difference virus bodies
+- Code permutation
+- Instruction replacement
+
+## Worm
+Automatic propogation
+
+## Rootkit
+Modifies OS to hide existence
+
+## Trojan
+Provides desirable functionality but hides malicious operation
+
+--- 
 
 # Security Principles
 ## Economy of mechanism 
