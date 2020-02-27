@@ -78,6 +78,8 @@
   - [Linux Permissions](#linux-permissions)
 - [Linux Sticky bit](#linux-sticky-bit)
 - [Windows File Copy Permissions](#windows-file-copy-permissions)
+  - [On the same drive](#on-the-same-drive)
+  - [On the same drive](#on-the-same-drive-1)
 - [Global Offset Table / Library Routines](#global-offset-table--library-routines)
 - [Integer Overflow / 2's Complement](#integer-overflow--2s-complement)
 - [Ciphers](#ciphers)
@@ -281,7 +283,7 @@
 > Get pointers via format string, like `$4%x`
 
 ## Chosen Plaintext
-> 
+> Collection of plaintext/ciphertext pairs for plaintexts selected by the attacker
 
 ## Eavesdropping
 > The interception of information intended for someone else during its transmission over a communication channel
@@ -353,11 +355,19 @@
 > 
 > Ex: `-rwxrwxrwx`
 
-
+---
 
 # Linux Sticky bit
+If sticky bit is set, prevents users from deleting or renaming the file if they do not own it
 
 # Windows File Copy Permissions
+## On the same drive
+Copied file will have same permissions as **destination** folder
+
+Moved file will have same permissions as **source** folder
+
+## On the same drive
+Copied and moved file will have same permissions as **destination** folder
 
 # Global Offset Table / Library Routines
 A table of addresses stored in the data section
@@ -380,36 +390,49 @@ Can be a different number if compiler chooses int as signed or not
 > Rotate by different shifts per character, attack frequency analysis
 
 ## Block
-> 
+- Plaintext and ciphertext have fixed length *b*
+- Plaintext of length *n* is partitioned into a sequence of m blocks
 
 ### DES
-> 
+- 64-bit blocks and 56-bit keys
+- Attacks are feasible since 90s
 
 ### 3DES
-> 
+- Nested [DES](#des) with 3 different keys
+- Backward compatible when $K_A = K_B = K_C$
+- Effective key length 168 bits
 
 ### AES
-> 
+- Symmetric encryption algorithm of choice
+- 128-bit blocks
+- 128, 192, or 256 possible key lengths
 
 
 # One-time Pad
 ## Perfect Security
-> 
+> Key is purely random, maps to **any** plaintext
 
 ## Reuse is Vulnerable
+> No longer perfectly secret
 > 
+> Frequency analysis
 
 
 # ECB Encryption
+![](ecb-mode.jpg)
 
 # CBC Mode
+![](cbc-mode.png)
 
 # OFB / CTF Encryption
+![](ofb-mode.jpg)
+
 ## Strengths
-> 
+- Can be parallelized
+- Can tolerate packet loss
 
 ## Weaknesses
-> 
+- Reusing the initialization vector
 
 
 # Diffie-Helman-Merkle Key Exchange
@@ -423,5 +446,16 @@ Can be a different number if compiler chooses int as signed or not
 
 
 # Euler's Theorem
+$Z^*_{10} = \{1,3,7,9\}$
+
+$\phi(10)=4$
+
+If $p$ is prime
+
+$Z^*_{10} = \{1,2,\ldots,p-1\}$
+
+$\phi(p)=p-1$
+
+For each element $x$ in $Z^*_{10}$, we have $x^{\phi(n)} \text{ mod } n = 1$
 
 # Anti-Virus
