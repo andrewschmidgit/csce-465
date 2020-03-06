@@ -55,6 +55,8 @@ Passing the Vignere cipher text to an online service for cracking a Vignere ciph
 4. Try $m_? \oplus c_1 \text{ and } c_2 = \text{Key}$
 5. Decode hex Key into ascii
 
+![](twotime.png)
+
 ## Help Received
 - https://onlinehextools.com/xor-hex-numbers
 - https://www.reddit.com/r/crypto/comments/2ceqsb/breaking_multiple_time_pads/
@@ -135,6 +137,9 @@ print(hex(flag_text))
 # 7 
 ## Solution
 
+
 ## Code
 
+
 ## Help Received
+- https://www.youtube.com/watch?v=WqQtK2B5v3U
