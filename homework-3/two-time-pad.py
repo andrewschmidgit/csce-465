@@ -12,7 +12,7 @@ hexes.append('7b524c5f43195e5b415116475d5c4b5417475b5e115b5f46531957475b514b42')
 
 file = open('test.txt', 'w')
 
-lookFor = 'This is a test of the Emergency'.encode().hex()
+lookFor = 'This is a test of the Emergency '.encode().hex()
 
 print(type(hexes[0]))
 print(xor(hexes[0], hexes[1]))
