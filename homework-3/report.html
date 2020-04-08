@@ -145,7 +145,72 @@ print(hex(flag_text))
 <hr>
 <h1 id="7">7</h1>
 <h2 id="solution-6">Solution</h2>
+<p>Since the web service tells you when there's invalid padding, you can brute force the cipher-block chaining method of encryption by guessing each byte</p>
 <h2 id="code-1">Code</h2>
+<pre><code class="language-py"><div><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+
+context.log_level = <span class="hljs-string">'error'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">xor</span><span class="hljs-params">(s1,s2)</span>:</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-string">''</span>.join(chr(ord(a) ^ ord(b)) <span class="hljs-keyword">for</span> a,b <span class="hljs-keyword">in</span> zip(s1,s2))
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">replace_str_index</span><span class="hljs-params">(text, index=<span class="hljs-number">0</span>, replacement=<span class="hljs-string">''</span>)</span>:</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-string">'%s%s%s'</span>%(text[:index],replacement,text[index+<span class="hljs-number">1</span>:])
+
+desired = [
+	<span class="hljs-string">'{"username": "gu'</span>,
+	<span class="hljs-string">'est", "is_admin"'</span>,
+	<span class="hljs-string">': "true", "expir'</span>,
+	<span class="hljs-string">'es": "2021-01-01'</span>,
+	<span class="hljs-string">'"}'</span> + <span class="hljs-string">'\x0e'</span>*<span class="hljs-number">14</span>
+]
+
+iv = <span class="hljs-string">'This is an IV456'</span>
+
+blocks = [
+	iv,
+	<span class="hljs-string">'a'</span>*<span class="hljs-number">16</span>,
+	<span class="hljs-string">'a'</span>*<span class="hljs-number">16</span>,
+	<span class="hljs-string">'a'</span>*<span class="hljs-number">16</span>,
+	<span class="hljs-string">'a'</span>*<span class="hljs-number">16</span>,
+	<span class="hljs-string">'a'</span>*<span class="hljs-number">16</span>,
+]
+<span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> range(len(blocks)<span class="hljs-number">-2</span>,<span class="hljs-number">-1</span>,<span class="hljs-number">-1</span>):
+	<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">16</span>):
+		<span class="hljs-keyword">print</span> <span class="hljs-string">'Guessing '</span> , str(<span class="hljs-number">15</span>-i), <span class="hljs-string">"th byte"</span>
+		<span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,<span class="hljs-number">256</span>):
+			blocks[n] = replace_str_index(blocks[n], <span class="hljs-number">15</span>-i, chr(j))
+
+			ciphertext = (blocks[n] + blocks[n+<span class="hljs-number">1</span>]).encode(<span class="hljs-string">'hex'</span>)
+
+			<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+				<span class="hljs-keyword">try</span>:
+					sleep(<span class="hljs-number">0.01</span>)
+					r = remote(<span class="hljs-string">'ctfshell.martincarlisle.com'</span>, <span class="hljs-number">47070</span>)
+
+					r.recvuntil(<span class="hljs-string">'What is your cookie?\n'</span>)
+					r.sendline(ciphertext)
+					response = r.recv()
+					r.close()
+					<span class="hljs-keyword">break</span>
+				<span class="hljs-keyword">except</span>:
+					sleep(<span class="hljs-number">1</span>)
+					<span class="hljs-keyword">continue</span>
+			<span class="hljs-keyword">if</span> response.find(<span class="hljs-string">'invalid padding'</span>) == <span class="hljs-number">-1</span>:
+				<span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> range(i+<span class="hljs-number">1</span>):
+					<span class="hljs-keyword">if</span> i == <span class="hljs-number">15</span>:
+						<span class="hljs-keyword">break</span>
+					new_val = chr(ord(blocks[n][<span class="hljs-number">15</span>-k]) ^ (i+<span class="hljs-number">1</span>) ^ (i+<span class="hljs-number">2</span>))
+					blocks[n] = replace_str_index(blocks[n], <span class="hljs-number">15</span>-k, new_val)
+				<span class="hljs-keyword">print</span> <span class="hljs-string">'ciphertext:'</span>, ciphertext
+				<span class="hljs-keyword">break</span>
+
+	blocks[n] = xor(blocks[n], <span class="hljs-string">'\x10'</span>*<span class="hljs-number">16</span>)
+	blocks[n] = xor(blocks[n], desired[n])
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">'answer:'</span>, <span class="hljs-string">""</span>.join(blocks).encode(<span class="hljs-string">'hex'</span>)
+
+
+</div></code></pre>
 <h2 id="help-received-4">Help Received</h2>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=WqQtK2B5v3U">https://www.youtube.com/watch?v=WqQtK2B5v3U</a></li>
